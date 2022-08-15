@@ -1,8 +1,11 @@
 <template>
-  <div>Money.vue</div>
+  <div>
+    Money.Vue
+    <Nav />
+  </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {}
 </script>
 
