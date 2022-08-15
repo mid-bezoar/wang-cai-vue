@@ -1,12 +1,11 @@
 <template>
-  <div>
-    statistics.Vue
-    <Nav />
-  </div>
+  <Layout> statistics.Vue </Layout>
 </template>
 
 <script lang="ts">
-export default {}
+export default {
+  name: 'Statistics',
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

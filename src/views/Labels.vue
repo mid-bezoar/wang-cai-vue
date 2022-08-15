@@ -1,12 +1,11 @@
 <template>
-  <div>
-    Labels.Vue
-    <Nav />
-  </div>
+  <Layout> Labels.Vue </Layout>
 </template>
 
 <script lang="ts">
-export default {}
+export default {
+  name: 'Labels',
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
