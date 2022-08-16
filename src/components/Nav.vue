@@ -32,12 +32,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/style/helper.scss';
 nav {
   display: flex;
   flex-direction: row;
   box-shadow: 0 0 3px rgb(0, 0, 0, 0.25);
   font-size: 12px;
-  > .item{
+  > .item {
     padding: 2px 0;
     width: 33.3333%;
     display: flex;
@@ -49,8 +50,8 @@ nav {
       height: 30px;
     }
   }
-  > .item.selected{
-    color: red;
+  > .item.selected {
+    color: $color-highlight;
   }
 }
 </style>
