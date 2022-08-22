@@ -29,7 +29,6 @@ export default class NumberPad extends Vue {
   @Prop(Number) readonly value!: number
   output?: string = this.value.toString()
 
-
   inputContent(e: MouseEvent) {
     const button = e.target as HTMLButtonElement
     const input = button.textContent as string
@@ -59,6 +58,8 @@ export default class NumberPad extends Vue {
   }
   ok() {
     this.$emit('update:value', parseFloat(this.output!))
+    this.$emit('submit')
+    this.output = '0'
   }
 }
 </script>
