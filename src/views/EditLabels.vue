@@ -1,13 +1,21 @@
 <template>
-  <Layout> </Layout>
+  <Layout>
+    <div>
+      <Icon name="right" />
+    </div>
+    <Notes fieldName="标签名" placeholder="请输入标签名" />
+  </Layout>
 </template>
 
 <script lang="ts">
 import tagListModel from '@/models/tagListModel'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import Notes from '@/components/Money/Notes.vue'
 
-@Component
+@Component({
+  components: { Notes }
+})
 export default class Labels extends Vue {
   created() {
     const id = this.$route.params.id
