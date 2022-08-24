@@ -1,4 +1,8 @@
-<template></template>
+<template>
+  <Layout>
+    
+  </Layout>
+</template>
 
 <script lang="ts">
 import Vue from 'vue'
