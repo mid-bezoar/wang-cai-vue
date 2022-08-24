@@ -1,39 +1,56 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon class="leftIcon" name="right" />
+      <Icon class="leftIcon" name="right" @click="goBack" />
       <span class="title">编辑标签</span>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem fieldName="标签名" placeholder="请输入标签名" />
+    <FormItem :value="tag && tag.name" @update:value="update" fieldName="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
 
 <script lang="ts">
-import tagListModel from '@/models/tagListModel'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import tagListModel from '@/models/tagListModel'
 import FormItem from '@/components/Money/FormItem.vue'
 
 @Component({
   components: { FormItem }
 })
 export default class Labels extends Vue {
+  tag?: { id: string; name: string } = undefined
   created() {
     const id = this.$route.params.id
     tagListModel.fetch()
     const tags = tagListModel.data
     const tag = tags.filter((t) => t.id === id)[0]
     if (tag) {
-      console.log(tag)
+      this.tag = tag
     } else {
       this.$router.replace('/404')
     }
+  }
+
+  update(name: string) {
+    if (this.tag) {
+      tagListModel.update(this.tag.id, name)
+    }
+  }
+
+  remove() {
+    if (this.tag) {
+      tagListModel.remove(this.tag.id)
+    }
+  }
+
+  goBack() {
+    this.$router.back()
   }
 }
 </script>
