@@ -1,9 +1,16 @@
 <template>
   <Layout>
-    <div>
-      <Icon name="right" />
+    <div class="navBar">
+      <Icon class="leftIcon" name="right" />
+      <span class="title">编辑标签</span>
+      <span class="rightIcon"></span>
     </div>
-    <Notes fieldName="标签名" placeholder="请输入标签名" />
+    <div class="form-wrapper">
+      <FormItem fieldName="标签名" placeholder="请输入标签名" />
+    </div>
+    <div class="button-wrapper">
+      <Button>删除标签</Button>
+    </div>
   </Layout>
 </template>
 
@@ -11,10 +18,10 @@
 import tagListModel from '@/models/tagListModel'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import Notes from '@/components/Money/Notes.vue'
+import FormItem from '@/components/Money/FormItem.vue'
 
 @Component({
-  components: { Notes }
+  components: { FormItem }
 })
 export default class Labels extends Vue {
   created() {
@@ -31,4 +38,32 @@ export default class Labels extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.navBar {
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > .leftIcon {
+    transform: rotateY(180deg);
+    width: 22px;
+    height: 22px;
+  }
+  > .rightIcon {
+    width: 22px;
+    height: 22px;
+  }
+}
+.form-wrapper {
+  margin-top: 8px;
+  background: white;
+}
+.button-wrapper {
+  text-align: center;
+  padding: 16px;
+  margin-top: 44 - 16px;
+}
+</style>
