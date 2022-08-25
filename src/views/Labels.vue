@@ -21,7 +21,7 @@ tagListModel.fetch()
 
 @Component
 export default class Labels extends Vue {
-  tags = tagListModel.data
+  tags = window.tagList
 
   createTag() {
     const name = window.prompt('请输出标签名')
@@ -42,6 +42,8 @@ export default class Labels extends Vue {
   background: white;
   font-size: 16px;
   padding: 0 16px;
+  height: 80%;
+  overflow: auto;
   > .tag {
     min-height: 44px;
     display: flex;
