@@ -17,6 +17,9 @@ Vue.component('Icon', Icon)
 Vue.component('Button', Button)
 
 window.tagList = tagListModel.fetch()
+window.findTag = (id) => {
+  return window.tagList.filter((t) => t.id === id)[0]
+}
 window.createTag = (name) => {
   const message = tagListModel.create(name)
   if (message === 'duplicated') {
@@ -24,6 +27,12 @@ window.createTag = (name) => {
   } else if (message === 'success') {
     window.alert('添加成功')
   }
+}
+window.removeTag = (id) => {
+  return tagListModel.remove(id)
+}
+window.updateTag = (id, name) => {
+  return tagListModel.update(id, name)
 }
 
 new Vue({
