@@ -23,7 +23,7 @@ import FormItem from '@/components/Money/FormItem.vue'
   components: { FormItem }
 })
 export default class Labels extends Vue {
-  tag?: { id: string; name: string } = undefined
+  tag?: Tag = undefined
 
   created() {
     this.tag = window.findTag(this.$route.params.id)
