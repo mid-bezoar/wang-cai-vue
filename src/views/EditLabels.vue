@@ -23,10 +23,12 @@ import FormItem from '@/components/Money/FormItem.vue'
   components: { FormItem }
 })
 export default class Labels extends Vue {
-  tag?: Tag = undefined
+  get tag() {
+    return this.$store.state.currentTag
+  }
 
   created() {
-    // this.tag =  store.findTag(this.$route.params.id)
+    this.$store.commit('setCurrentTag', this.$route.params.id)
     if (!this.tag) {
       this.$router.replace('/404')
     }
