@@ -6,7 +6,7 @@
       <span class="rightIcon" />
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag && tag.name" @update:value="update" fieldName="标签名" placeholder="请输入标签名" />
+      <FormItem :value="currentTag && currentTag.name" @update:value="update" fieldName="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
@@ -23,27 +23,27 @@ import FormItem from '@/components/Money/FormItem.vue'
   components: { FormItem }
 })
 export default class Labels extends Vue {
-  get tag() {
+  get currentTag() {
     return this.$store.state.currentTag
   }
 
   created() {
     this.$store.commit('initTags')
     this.$store.commit('setCurrentTag', this.$route.params.id)
-    if (!this.tag) {
+    if (!this.currentTag) {
       this.$router.replace('/404')
     }
   }
 
   update(name: string) {
-    if (this.tag) {
-      this.$store.commit('updateTag', { id: this.tag.id, name })
+    if (this.currentTag) {
+      this.$store.commit('updateTag', { id: this.currentTag.id, name })
     }
   }
 
   remove() {
-    if (this.tag) {
-      this.$store.commit('removeTag', this.tag.id)
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id)
     }
   }
 
