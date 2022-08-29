@@ -13,7 +13,7 @@ import { Component, Prop } from 'vue-property-decorator'
 type DataSourceItem = { text: string; value: string }
 
 @Component
-export default class Types extends Vue {
+export default class Tabs extends Vue {
   @Prop({ type: Array, required: true }) dataSource!: DataSourceItem[]
   @Prop(String) value!: string
   @Prop(String) classPrefix?: string
