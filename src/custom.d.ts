@@ -20,4 +20,10 @@ type TagListModel = {
   remove: (id: string) => boolean
 }
 
+type RootState = {
+  recordList: RecordItem[]
+  tagList: Tag[]
+  currentTag?: Tag
+}
+
 // interface Window {}
