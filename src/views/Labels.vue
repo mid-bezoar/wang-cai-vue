@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="tags">
+    <div class="tags" :class="{ 'tabs-hi': tags.length > 10 }">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
         <span>{{ tag.name }}</span>
         <Icon name="right" />
@@ -33,8 +33,6 @@ export default class Labels extends mixins(TagHelper) {
   background: white;
   font-size: 16px;
   padding: 0 16px;
-  // height: 80%;
-  // overflow: auto;
   > .tag {
     min-height: 44px;
     display: flex;
@@ -45,6 +43,10 @@ export default class Labels extends mixins(TagHelper) {
       color: #666;
     }
   }
+}
+.tabs-hi {
+  height: 80%;
+  overflow: auto;
 }
 .createTag {
   background: #767676;
