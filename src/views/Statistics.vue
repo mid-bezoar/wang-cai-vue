@@ -3,13 +3,15 @@
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" />
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" />
     <div>
-      type:{{ type }}
-      <br />
-      interval: {{ interval }}
-    </div>
-    <div>
       <ol>
-        <li v-for="item in result" :key="item.id">{{ item }}</li>
+        <li v-for="(group, index) in result" :key="index">
+          {{ group.title }}
+          <ol>
+            <li v-for="item in group.items" :key="item.id">
+              {{ item.amount }}
+            </li>
+          </ol>
+        </li>
       </ol>
     </div>
   </Layout>
@@ -27,11 +29,19 @@ import typeList from '@/constants/typeList'
 })
 export default class Statistics extends Vue {
   get recordList() {
-    return this.$store.state.recordList
+    return (this.$store.state as RootState).recordList
   }
 
   get result() {
-    return this.recordList
+    const { recordList } = this
+    type HashTableValue = { title: string; items: RecordItem[] }
+    const hashTable: { [key: string]: HashTableValue } = {}
+    for (let i = 0; i < recordList.length; i++) {
+      const [date] = recordList[i].createdAt!.split('T')
+      hashTable[date] = hashTable[date] || { title: date, items: [] }
+      hashTable[date].items.push(recordList[i])
+    }
+    return hashTable
   }
 
   created() {
