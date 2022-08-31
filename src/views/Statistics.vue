@@ -1,11 +1,14 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" />
-    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" />
+    <!-- <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" /> -->
     <div>
       <ol>
         <li v-for="(group, index) in groupedList" :key="index">
-          <h3 class="title">{{ beautify(group.title) }}</h3>
+          <h3 class="title">
+            {{ beautify(group.title) }}
+            <span>￥{{ group.total }}</span>
+          </h3>
           <ol>
             <li class="record" v-for="(item, index2) in group.items" :key="index2">
               <span>{{ tagString(item.tags) }}</span>
@@ -60,8 +63,16 @@ export default class Statistics extends Vue {
     const { recordList } = this
     if (!recordList.length) return []
 
-    const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
-    const result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }]
+    type Result = {
+      title: string
+      total?: number
+      items: RecordItem[]
+    }[]
+
+    const newList = clone(recordList)
+      .filter((r) => r.type === this.type)
+      .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
+    const result: Result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }]
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i]
       const last = result[result.length - 1]
@@ -71,6 +82,9 @@ export default class Statistics extends Vue {
         result.push({ title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current] })
       }
     }
+    result.map((group) => {
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0)
+    })
     return result
   }
 
@@ -80,17 +94,17 @@ export default class Statistics extends Vue {
 
   type = '-'
   typeList = typeList
-  interval = 'day'
-  intervalList = intervalList
+  // interval = 'day'
+  // intervalList = intervalList
 }
 </script>
 
 <style lang="scss" scoped>
 ::v-deep {
   .type-tabs-item {
-    background: white;
+    background: #c4c4c4;
     &.selected {
-      background: #c4c4c4;
+      background: white;
       &::after {
         display: none;
       }
