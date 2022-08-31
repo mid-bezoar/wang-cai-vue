@@ -5,7 +5,7 @@
     <div class="notes">
       <FormItem fieldName="备注" placeholder="在这里输入备注" :value.sync="record.notes" />
     </div>
-    <Tags />
+    <Tags :value.sync="record.tags" />
   </Layout>
 </template>
 
@@ -42,6 +42,9 @@ export default class Money extends Vue {
 
   saveRecord() {
     this.$store.commit('createRecord', this.record)
+    if (this.$store.state.createRecordError === null) {
+      window.alert('已保存')
+    }
   }
 }
 </script>

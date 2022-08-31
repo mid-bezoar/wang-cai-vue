@@ -26,7 +26,6 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import Tabs from '@/components/Tabs.vue'
-import intervalList from '@/constants/intervalList'
 import typeList from '@/constants/typeList'
 import dayjs from 'dayjs'
 import clone from '@/lib/clone'
@@ -61,7 +60,6 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const { recordList } = this
-    if (!recordList.length) return []
 
     type Result = {
       title: string
@@ -72,6 +70,7 @@ export default class Statistics extends Vue {
     const newList = clone(recordList)
       .filter((r) => r.type === this.type)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
+    if (!newList.length) return [] as Result
     const result: Result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }]
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i]
