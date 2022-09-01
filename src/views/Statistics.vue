@@ -2,23 +2,22 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" />
     <!-- <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" /> -->
-    <div>
-      <ol>
-        <li v-for="(group, index) in groupedList" :key="index">
-          <h3 class="title">
-            {{ beautify(group.title) }}
-            <span>￥{{ group.total }}</span>
-          </h3>
-          <ol>
-            <li class="record" v-for="(item, index2) in group.items" :key="index2">
-              <span>{{ tagString(item.tags) }}</span>
-              <span class="notes">{{ item.notes }}</span>
-              <span>￥{{ item.amount }}</span>
-            </li>
-          </ol>
-        </li>
-      </ol>
-    </div>
+    <ol v-if="groupedList.length">
+      <li v-for="(group, index) in groupedList" :key="index">
+        <h3 class="title">
+          {{ beautify(group.title) }}
+          <span>￥{{ group.total }}</span>
+        </h3>
+        <ol>
+          <li class="record" v-for="(item, index2) in group.items" :key="index2">
+            <span>{{ tagString(item.tags) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amount }}</span>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <div v-else class="noResult">暂无记录</div>
   </Layout>
 </template>
 
@@ -35,7 +34,7 @@ import clone from '@/lib/clone'
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',')
+    return tags.length === 0 ? '无' : tags.map((t) => t.name).join('，')
   }
 
   beautify(string: string) {
@@ -99,6 +98,10 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.noResult {
+  padding: 16px;
+  text-align: center;
+}
 ::v-deep {
   .type-tabs-item {
     background: #c4c4c4;
