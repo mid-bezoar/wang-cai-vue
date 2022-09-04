@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout">
+  <Layout class-prefix="layout" ref="layout" :style="{ height: h + 'px' }">
     <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     <Tabs :data-source="typeList" :value.sync="record.type" />
     <div class="notes">
@@ -27,6 +27,7 @@ import typeList from '@/constants/typeList'
   }
 })
 export default class Money extends Vue {
+  h = document.body.clientHeight
   record: RecordItem = {
     tags: [],
     type: '-',
