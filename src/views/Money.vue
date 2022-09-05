@@ -17,6 +17,7 @@ import Tags from '@/components/Money/Tags.vue'
 import { Component } from 'vue-property-decorator'
 import Tabs from '../components/Tabs.vue'
 import typeList from '@/constants/typeList'
+// import MyMessage from '@/components/myMessage'
 
 @Component({
   components: { Tags, FormItem, NumberPad, Tabs },
@@ -42,6 +43,8 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
+    console.log(this)
+
     if (!this.record.tags || !this.record.tags.length) {
       return window.alert('请至少选择应该')
     }

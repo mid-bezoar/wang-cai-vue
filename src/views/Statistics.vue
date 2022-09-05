@@ -29,6 +29,12 @@ import typeList from '@/constants/typeList'
 import dayjs from 'dayjs'
 import clone from '@/lib/clone'
 
+type Result = {
+  title: string
+  total?: number
+  items: RecordItem[]
+}[]
+
 @Component({
   components: { Tabs }
 })
@@ -37,6 +43,7 @@ export default class Statistics extends Vue {
     return tags.length === 0 ? '无' : tags.map((t) => t.name).join('，')
   }
 
+  // 判断日期
   beautify(string: string) {
     const day = dayjs(string)
     const now = dayjs()
@@ -59,12 +66,6 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const { recordList } = this
-
-    type Result = {
-      title: string
-      total?: number
-      items: RecordItem[]
-    }[]
 
     const newList = clone(recordList)
       .filter((r) => r.type === this.type)
